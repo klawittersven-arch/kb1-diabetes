@@ -1,0 +1,21 @@
+
+== Offline (Service Worker)
+  ✓ Alle Dateien liegen im Offline-Speicher
+  ✓ sw.js listet jede HTML-, JS- und CSS-Datei
+  ✓ index.html funktioniert ohne Netz
+  ✓ regelkreis.html funktioniert ohne Netz
+  ✓ sicher.html funktioniert ohne Netz
+  ✓ Antworten funktioniert auch offline
+
+== Datenschutz
+  ✓ Keine Cookies
+  ✓ Keine externen Adressen im Quelltext (keine Schriften, Skripte, Analyse)
+  ✓ Die Übungen senden keine Daten (nur der Service Worker lädt eigene Dateien)
+  ✓ Kein innerHTML (Texte werden sicher eingefügt)
+
+== Dateigrößen
+  ✓ Gesamtgröße 52.1 KB (< 150 KB)
+  ✓ Keine Fehler in der Konsole
+  ✓ Keine Anfragen an fremde Adressen
+
+13 von 13 Prüfungen bestanden.
