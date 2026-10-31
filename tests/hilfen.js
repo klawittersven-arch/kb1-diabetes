@@ -64,11 +64,12 @@ function beobachten(seite, protokoll, name) {
  * Voraussetzung: im Ordner worker/ einmal „npm install“. */
 const { spawn } = require('child_process');
 function workerStarten(port, lebensdauerMinuten = 360) {
-  const WORKER = path.resolve(__dirname, '..', 'worker');
+  const WURZEL = path.resolve(__dirname, '..');
+  const WRANGLER = path.join(WURZEL, 'worker', 'node_modules', '.bin', 'wrangler');
   const zustand = fs.mkdtempSync(path.join(require('os').tmpdir(), 'kb1-wrangler-'));
-  const kind = spawn('npx', ['wrangler', 'dev', '--port', String(port), '--ip', '127.0.0.1',
+  const kind = spawn(WRANGLER, ['dev', '--config', path.join(WURZEL, 'wrangler.jsonc'), '--port', String(port), '--ip', '127.0.0.1',
     '--var', `LEBENSDAUER_MINUTEN:${lebensdauerMinuten}`, '--persist-to', zustand, '--show-interactive-dev-session=false'],
-  { cwd: WORKER, stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, WRANGLER_SEND_METRICS: 'false', CI: '1' } });
+  { cwd: WURZEL, stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, WRANGLER_SEND_METRICS: 'false', CI: '1' } });
   let log = '';
   kind.stdout.on('data', (d) => { log += d; });
   kind.stderr.on('data', (d) => { log += d; });

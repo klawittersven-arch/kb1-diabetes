@@ -6,11 +6,11 @@
 
 var CONFIG = {
 
-  // Adresse des Cloudflare-Workers für die Fortschrittsanzeige.
-  // Wird beim Veröffentlichen automatisch eingetragen (GitHub-Workflow
-  // „Fortschritt-Worker veröffentlichen“). Leer = Anzeige ausgeschaltet;
-  // die Übungen funktionieren dann wie gewohnt ohne Anmeldung.
-  FORTSCHRITT_URL: '',
+  // Adresse des Cloudflare-Workers für die Fortschrittsanzeige
+  // (Cloudflare-Projekt „kb1-diabetes“, siehe README).
+  // Leer ('') = Anzeige ausgeschaltet; die Übungen funktionieren dann wie
+  // gewohnt ohne Anmeldung.
+  FORTSCHRITT_URL: 'https://kb1-diabetes.klawittersven.workers.dev',
 
   // So viele Stunden merkt sich ein Handy Vorname und Raumcode.
   RAUMCODE_GUELTIG_STUNDEN: 3,

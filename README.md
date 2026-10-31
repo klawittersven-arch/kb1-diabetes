@@ -32,8 +32,8 @@ docs/                ← alles, was GitHub Pages veröffentlicht (die Web-App)
   fortschritt.html   ← Fortschritt am Beamer (für die Lehrkraft, nirgends verlinkt)
   app.js, melden.js, fortschritt.js, gemeinsam.js   ← Programmlogik
   style.css, fortschritt.css, sw.js                 ← Gestaltung, Offline-Speicher
-worker/              ← Cloudflare-Worker für die Fortschrittsanzeige (src/index.js, wrangler.jsonc)
-.github/workflows/fortschritt-worker.yml   ← veröffentlicht den Worker automatisch
+worker/src/index.js  ← Cloudflare-Worker + Durable Object für die Fortschrittsanzeige
+wrangler.jsonc       ← Cloudflare-Konfiguration (Projekt „kb1-diabetes“)
 qr/                  ← QR-Codes (PNG) für regelkreis.html und sicher.html
 werkzeuge/
   qr_erzeugen.py     ← erzeugt und prüft die QR-Codes
@@ -68,26 +68,26 @@ alle sind: je Person ein Balken für A1 und B1 („x von y gelöst“), ✓ = Me
 ⚠ = zu viel geraten (Übung musste neu gestartet werden). Einzelne Antworten werden **nicht**
 übertragen. Wer „Ohne Anzeige weiter“ wählt, arbeitet ganz normal – es wird nichts gesendet.
 
-### Einrichtung (einmalig, ca. 10 Minuten)
+### Einrichtung (einmalig, ca. 5 Minuten – wie bei Tetris)
 
-1. **Cloudflare-API-Token erstellen:** https://dash.cloudflare.com/profile/api-tokens →
-   „Create Token“ → Vorlage **„Edit Cloudflare Workers“** → „Use template“. Bei „Account
-   Resources“ Ihr Konto wählen, bei „Zone Resources“ „All zones“ lassen → „Continue to
-   summary“ → „Create Token“. Den angezeigten Token kopieren (er wird nur einmal gezeigt).
-2. **Konto-ID kopieren:** Im Cloudflare-Dashboard links „Workers & Pages“ öffnen; rechts steht
-   unter „Account details“ die **Account ID**. (Falls Cloudflare dort nach einer
-   `workers.dev`-Subdomain fragt: einmal einen Namen wählen und bestätigen.)
-3. **Beides in GitHub hinterlegen:** Repository → **Settings** → **Secrets and variables** →
-   **Actions** → „New repository secret“:
-   - Name `CLOUDFLARE_API_TOKEN`, Wert: der Token aus Schritt 1
-   - Name `CLOUDFLARE_ACCOUNT_ID`, Wert: die Account ID aus Schritt 2
-4. **Veröffentlichen:** Repository → **Actions** → links „Fortschritt-Worker veröffentlichen“ →
-   „Run workflow“ → „Run workflow“. Nach ca. 1 Minute ist der Worker online. Der Workflow trägt
-   seine Adresse automatisch in `docs/config.js` ein (Commit von „github-actions[bot]“);
-   1–2 Minuten später ist auch GitHub Pages aktualisiert.
+Der Verbindungsdienst läuft als Cloudflare-Worker **`kb1-diabetes`** unter
+**https://kb1-diabetes.klawittersven.workers.dev** (diese Adresse steht schon in `docs/config.js`).
+Das Cloudflare-Projekt wird – genau wie „tetris“ – direkt mit diesem GitHub-Repository verknüpft;
+ein API-Token oder GitHub-Secrets sind nicht nötig.
 
-Ab dann wird der Worker bei jeder Änderung im Ordner `worker/` automatisch neu veröffentlicht.
-Klappt Schritt 4 nicht, steht der Grund im Protokoll des Workflows (Actions → letzter Lauf).
+1. https://dash.cloudflare.com öffnen → links **Workers & Pages** → **Create** (bzw. „Create
+   application“) → **Import a repository** / „Continue with GitHub“.
+2. GitHub-Konto **klawittersven-arch** und das Repository **kb1-diabetes** wählen.
+   (Fehlt es in der Liste: über „Configure GitHub App“ bzw. „+ Add“ der Cloudflare-App Zugriff
+   auf `kb1-diabetes` geben.)
+3. Einstellungen: **Project name `kb1-diabetes`** (muss genau so heißen), Build command leer
+   lassen, Deploy command `npx wrangler deploy`, Root directory `/` → **Deploy**.
+4. Nach ca. 1 Minute zeigt https://kb1-diabetes.klawittersven.workers.dev eine kurze Antwort
+   `{"dienst":"KB1 Diabetes – Fortschrittsanzeige","ok":true}` – dann ist alles bereit.
+
+Ab dann geht jede Änderung am Worker (`worker/src/index.js`, `wrangler.jsonc`) nach ca. einer
+Minute automatisch online. Ob ein Update durchgelaufen ist, sieht man im Cloudflare-Dashboard unter
+**Workers & Pages → kb1-diabetes → Deployments**.
 
 ### Im Unterricht
 
@@ -111,12 +111,12 @@ das Aussehen am Beamer zu prüfen.
 - Der Worker speichert je Raum (ein „Durable Object“) nur diese Angaben. **Lesen kann nur Ihr
   Browser** (geheimer Schlüssel, der beim Starten des Raums entsteht). **Nach 6 Stunden wird der
   Raum samt allen Einträgen automatisch gelöscht** (`LEBENSDAUER_MINUTEN` in
-  `worker/wrangler.jsonc`). Cloudflare-Protokolle sind abgeschaltet.
+  `wrangler.jsonc`). Cloudflare-Protokolle sind abgeschaltet.
 - Bitte nur Vornamen verwenden (Hinweis an die Klasse). Ein Sperrwort-Filter (`SPERRWOERTER` in
   `docs/config.js`) lehnt grobe Namen ab.
 - Der kostenlose Cloudflare-Tarif reicht aus (100 000 Anfragen am Tag; eine Stunde mit
   30 SuS braucht etwa 3 000).
-- Ist keine Worker-Adresse eingetragen oder Cloudflare nicht erreichbar, funktionieren die
+- Ist `FORTSCHRITT_URL` leer oder Cloudflare nicht erreichbar, funktionieren die
   Übungen ganz normal – nur die Anzeige bleibt leer.
 
 ## Texte ändern (`docs/inhalte.js`)
