@@ -7,7 +7,8 @@
   --gold: #F2C200;
   --gruen: #2E9A55;
   --bernstein: #E29A00;
-  --h: 10; /* Kartenhöhe in vh – setzt fortschritt.js je nach Anzahl */
+  --h: 10;  /* Kartenhöhe in vh – setzt fortschritt.js je nach Anzahl */
+  --fs: 2;  /* Schriftgröße in vh – setzt fortschritt.js je nach Zahl der Übungen */
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; }
@@ -61,11 +62,11 @@ body {
 .s-karte.alles-fertig { border-color: var(--gruen); background: #EAF7EE; }
 .s-karte.ruhig { opacity: .55; }
 .s-karte.neu { animation: herein .6s ease-out; }
-.s-name { font-size: calc(var(--h) * .27vh); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
+.s-name { font-size: calc(var(--fs) * 1.3vh); font-weight: 800; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
 .s-zeilen { display: grid; gap: .5vh; align-content: center; }
-.s-zeile { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .6vw; font-size: calc(var(--h) * .2vh); font-weight: 700; }
+.s-zeile { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .6vw; font-size: calc(var(--fs) * 1vh); font-weight: 700; }
 .s-kurz { color: var(--petrol); }
-.s-spur { height: calc(var(--h) * .14vh); background: #DCE7E9; border-radius: 1vh; overflow: hidden; }
+.s-spur { height: calc(var(--fs) * .7vh); background: #DCE7E9; border-radius: 1vh; overflow: hidden; }
 .s-balken { display: block; height: 100%; width: 0; background: var(--petrol); border-radius: 1vh; transition: width .6s ease; }
 .s-balken.fertig { background: var(--gruen); }
 .s-balken.durchklicken { background: var(--bernstein); }

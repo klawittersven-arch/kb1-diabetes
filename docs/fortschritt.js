@@ -190,6 +190,8 @@
     var m = rasterMasse(liste.length);
     raster.style.gridTemplateColumns = 'repeat(' + m.spalten + ', minmax(0, 1fr))';
     raster.style.setProperty('--h', m.h.toFixed(2));
+    // Schriftgröße so wählen, dass Name + ein Balken je Übung in die Karte passen
+    raster.style.setProperty('--fs', (m.h / (2 + 1.6 * SPALTEN.length)).toFixed(3));
     raster.textContent = '';
     var jetzt = Date.now();
 
