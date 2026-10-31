@@ -129,7 +129,7 @@ function erstelle(lsg) {
         zelle([kt('Name:')], 3453), zelle([kt('Datum:')], 3453)
       ] }),
       new TableRow({ children: [zelle([kt('Klasse | Fach | Lehrer*in: 3BFP2 | KB I | Lo / Kl')], 6906, { columnSpan: 2 })] }),
-      new TableRow({ children: [zelle([kt('Themenblock I – Thema: Diabetes mellitus · Klausurvorbereitung', true)], 6906, { columnSpan: 2 })] })
+      new TableRow({ children: [zelle([kt('Themenblock I – Thema: Diabetes mellitus · Regelkreis & sicheres Handeln', true)], 6906, { columnSpan: 2 })] })
     ]
   });
 
@@ -138,14 +138,14 @@ function erstelle(lsg) {
 
   inhalt.push(new Paragraph({
     alignment: AlignmentType.CENTER, spacing: { before: 60, after: 80 },
-    children: [b('Regelkreis & sicheres Handeln – Feinschliff für die Klausur', { size: 30, color: PETROL_D }),
+    children: [b('Regelkreis & sicheres Handeln', { size: 30, color: PETROL_D }),
       ...(lsg ? [b('  [LSG]', { size: 30, color: ROT })] : [])]
   }));
   inhalt.push(p([b('Lernziel: '), t('Sie beschreiben den Regelkreis des Blutzuckers mit allen Fachbegriffen und begründen Ihr Handeln bei einer Hypoglykämie und bei einer Insulingabe ohne Mahlzeit.')], { spacing: { after: 40 } }));
   inhalt.push(p([b('Vorwissen: '), t('„So regelt Insulin den Blutzucker“ · „Es war einmal … das Leben“ · „Sicher entscheiden vor der Insulingabe“ · „Akutkomplikation: Hyperglykämie / Hypoglykämie“', { color: '3A5157' })], { spacing: { after: 40 } }));
   inhalt.push(p([
     bild(BILD('icon_handy.png'), 0.5, 0.5), t(' = am Smartphone (QR-Code scannen)      ', { size: 20 }),
-    bild(BILD('icon_stift.png'), 0.5, 0.5), t(' = auf Papier – so wie in der Klausur', { size: 20 })
+    bild(BILD('icon_stift.png'), 0.5, 0.5), t(' = auf Papier', { size: 20 })
   ], { spacing: { after: 40 } }));
 
   // ---------- Teil A: Regelkreis ----------
@@ -166,7 +166,7 @@ function erstelle(lsg) {
     msZeile('Glukoneogenese', 'Glukose neu bilden', null)
   ]));
 
-  inhalt.push(aufgabe('stift', 'A2', 'Der Regelkreis in 5 Schritten – im Klausurformat', '8 Min.'));
+  inhalt.push(aufgabe('stift', 'A2', 'Der Regelkreis in 5 Schritten', '8 Min.'));
   inhalt.push(p([b('Handy weg! '), t('Beschreiben Sie den Regelkreis des Blutzuckers in fünf Schritten – von der kohlenhydratreichen Mahlzeit bis zum erneuten Anstieg des Blutzuckers. Verwenden Sie die Fachbegriffe: '),
     b('β-Zellen · α-Zellen · Insulin · Glukagon · Glykogenese · Glykogenolyse · Glukoneogenese'), t('.')]));
   inhalt.push(linien([
@@ -179,7 +179,7 @@ function erstelle(lsg) {
     ['5', 'Die Leber baut Glykogen ab (Glykogenolyse) und bildet neue Glukose (Glukoneogenese)'],
     ['', '→ der Blutzucker steigt wieder.']
   ]));
-  inhalt.push(p(t('Tipp: Prüfen Sie am Ende – stehen alle sieben Fachbegriffe in Ihrem Text? In der Klausur kostet jeder fehlende Fachbegriff Punkte.', { size: 19, color: GRAU }), { spacing: { before: 60 } }));
+  inhalt.push(p(t('Tipp: Prüfen Sie am Ende – stehen alle sieben Fachbegriffe in Ihrem Text?', { size: 19, color: GRAU }), { spacing: { before: 60 } }));
 
   inhalt.push(aufgabe('stift', 'A3', 'Präzisieren', '1 Min.'));
   inhalt.push(p([t('Streichen Sie auf dem AB „So regelt Insulin den Blutzucker“ im Infotext den Satz „Diesen Prozess nennt man Glukoneogenese.“ Schreiben Sie stattdessen: '),
@@ -211,7 +211,7 @@ function erstelle(lsg) {
   ]));
 
   // ---------- Selbstcheck ----------
-  inhalt.push(teil('Selbstcheck vor der Klausur', '2 Min.'));
+  inhalt.push(teil('Selbstcheck', '2 Min.'));
   const sc = [
     '… den Regelkreis in 5 Schritten mit Glykogenese, Glykogenolyse und Glukoneogenese beschreiben (A1, A2).',
     '… Maßnahmen bei einer Hypoglykämie beschreiben und begründen (B1, B2).',
