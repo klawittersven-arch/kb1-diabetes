@@ -140,7 +140,7 @@ var INHALTE = {
      ------------------------------------------------------------------------ */
   regelkreis: {
     titel: 'A1 · Wortbaustein-Detektiv',
-    anweisung: 'Knacken Sie die Fachbegriffe des Blutzucker-Regelkreises – Sie brauchen sie in der Klausur. Der Detektiv-Schlüssel hilft Ihnen.',
+    anweisung: 'Knacken Sie die Fachbegriffe des Blutzucker-Regelkreises. Der Detektiv-Schlüssel hilft Ihnen.',
 
     infokarten: [
       {
@@ -248,7 +248,7 @@ var INHALTE = {
       },
       {
         ueberschrift: 'Teil 3 · Genau formulieren',
-        anweisung: 'Für die Klausur brauchen Sie es genau.',
+        anweisung: 'Hier kommt es auf die genaue Formulierung an.',
         karten: [
           {
             nummer: 10,
