@@ -38,7 +38,8 @@ var INHALTE = {
   allgemein: {
     kopfzeile: 'KB I – Diabetes mellitus · 3BFP2',
     merksatzUeberschrift: 'Ihr Merksatz',
-    merksatzHinweis: 'Schreiben Sie den Merksatz in den Kasten auf Ihrem Arbeitsblatt.',
+    // erscheint gut sichtbar über dem Merksatz; {kurz} = A1 bzw. B1 (aus start.links)
+    merksatzHinweis: 'Jetzt aufs Arbeitsblatt: Ergänzen Sie mit diesem Merksatz die Lücken im Kasten „Merksatz {kurz}“!',
     // {x} und {y} werden automatisch durch Zahlen ersetzt.
     fortschritt: '{x} von {y} gelöst',
     ersterVersuch: 'Beim ersten Versuch richtig: {x} von {y}',
@@ -307,7 +308,8 @@ var INHALTE = {
       }
     ],
 
-    merksatz: '**Glykogenese** = Glykogen aufbauen (durch Insulin).\n**Glykogenolyse** = Glykogen abbauen (durch Glukagon).\n**Glukoneogenese** = Glukose neu bilden.'
+    // fett = die Wörter, die auf dem Arbeitsblatt in die Lücken gehören
+    merksatz: 'Glykogenese = **Glykogen aufbauen** (durch **Insulin**).\nGlykogenolyse = **Glykogen abbauen** (durch **Glukagon**).\nGlukoneogenese = **Glukose neu bilden**.'
   },
 
   /* ------------------------------------------------------------------------
@@ -433,6 +435,7 @@ var INHALTE = {
       }
     ],
 
-    merksatz: 'Hypoglykämie: **schnelle KH** → Aktivität stoppen → nach 15–30 Min. **nachmessen** → langsame KH.\nKeine Mahlzeit: mahlzeitenbezogenes Insulin **nicht wie geplant**; Basalinsulin deckt den Grundbedarf. Nie selbst ändern – **Rücksprache**!'
+    // fett = die Wörter, die auf dem Arbeitsblatt in die Lücken gehören
+    merksatz: 'Hypoglykämie: schnelle **KH** → Aktivität **stoppen** → nach 15–30 Min. **nachmessen** → langsame KH.\nKeine Mahlzeit: mahlzeitenbezogenes Insulin **nicht** wie geplant; Basalinsulin deckt den **Grundbedarf**. Nie selbst ändern – **Rücksprache**!'
   }
 };

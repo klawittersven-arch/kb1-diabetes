@@ -115,7 +115,9 @@
   ✓ „Aufgabe neu starten“ setzt alles zurück
   ✓ Keine Karte mehr als gelöst markiert
   ✓ Merksatz erscheint nach vollständiger Lösung
-  ✓ Passender Hinweis unter dem Merksatz
+  ✓ Hinweis „… Kasten Merksatz A1“ sichtbar
+  ✓ Hinweis steht über dem Merksatz
+  ✓ Hinweis groß, fett und farbig hinterlegt
   ✓ Erster-Versuch-Zähler stimmt
   ✓ Keine Sternchen im Merksatz
   ✓ Fett markierte Wörter im Merksatz
@@ -197,7 +199,9 @@
   ✓ „Aufgabe neu starten“ setzt alles zurück
   ✓ Keine Karte mehr als gelöst markiert
   ✓ Merksatz erscheint nach vollständiger Lösung
-  ✓ Passender Hinweis unter dem Merksatz
+  ✓ Hinweis „… Kasten Merksatz B1“ sichtbar
+  ✓ Hinweis steht über dem Merksatz
+  ✓ Hinweis groß, fett und farbig hinterlegt
   ✓ Erster-Versuch-Zähler stimmt
   ✓ Keine Sternchen im Merksatz
   ✓ Fett markierte Wörter im Merksatz
@@ -211,4 +215,4 @@
   ✓ Keine Fehler in der Konsole
   ✓ Keine Anfragen an fremde Adressen
 
-204 von 204 Prüfungen bestanden.
+208 von 208 Prüfungen bestanden.

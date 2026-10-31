@@ -372,8 +372,16 @@
       var h = el('h2', null, A.merksatzUeberschrift);
       h.id = 'merksatz-ueberschrift';
       kasten.appendChild(h);
+      // Deutlicher Arbeitsauftrag VOR dem Merksatz: auf das Arbeitsblatt übertragen
+      var link = (INHALTE.start.links || []).filter(function (l) { return l.seite === seiteId; })[0];
+      var hinweis = el('p', 'merksatz-hinweis');
+      var symbol = el('span', 'hinweis-symbol', '✍️');
+      symbol.setAttribute('aria-hidden', 'true');
+      hinweis.appendChild(symbol);
+      hinweis.appendChild(el('span', 'hinweis-text',
+        K.ersetzen(seite.merksatzHinweis || A.merksatzHinweis, { kurz: link ? link.kurz : '' })));
+      kasten.appendChild(hinweis);
       kasten.appendChild(K.formatiert('p', 'merksatz-text', seite.merksatz));
-      kasten.appendChild(el('p', 'merksatz-hinweis', seite.merksatzHinweis || A.merksatzHinweis));
       kasten.appendChild(el('p', 'erster-versuch',
         K.ersetzen(A.ersterVersuch, { x: anzahlErsterVersuch(), y: gesamt })));
     }
