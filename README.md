@@ -134,7 +134,7 @@ Wenn Sie einen Merksatz ändern, passen Sie auch den Lückentext auf dem Arbeits
 
 ### Schutz gegen Durchklicken
 
-Bei jeder Übung steht in `docs/inhalte.js` `mindestensErsterVersuch` (A1: 10 von 15, B1: 7 von 10).
+Bei jeder Übung steht in `docs/inhalte.js` `mindestensErsterVersuch` (A1: 11 von 17, B1: 7 von 10).
 Sind weniger Aufgaben beim ersten Versuch richtig, erscheint statt des Merksatzes
 „Hey, nicht einfach durchklicken!“ mit dem Knopf „Aufgabe neu starten“. Mit `0` schalten Sie die
 Prüfung ab.

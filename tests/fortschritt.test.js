@@ -62,16 +62,18 @@ async function bis(seite, fn, arg, ms = 12000) {
     H.pruefe(await bis(h1, () => !!document.querySelector('.anmeldung.angemeldet')), 'Angemeldet-Zeile erscheint');
     H.pruefe((await h1.locator('.anmeldung.angemeldet').innerText()).includes('Mia') && (await h1.locator('.anmeldung.angemeldet').innerText()).includes(raum), 'Zeile zeigt Name und Raum');
 
-    // Laptop sieht Mia mit 0/15
+    // Laptop sieht Mia mit 0 gelösten Aufgaben
     H.pruefe(await bis(laptop, () => [...document.querySelectorAll('.s-name')].some((e) => e.textContent === 'Mia')), 'Beamer zeigt „Mia“');
     // drei Karten richtig lösen
     const rk = await h1.evaluate(() => INHALTE.regelkreis);
     const kartenRk = rk.abschnitte.filter((a) => !a.art).flatMap((a) => a.karten);
+    const gesamtRk = kartenRk.length + rk.abschnitte.filter((a) => a.art === 'reihenfolge').reduce((n, a) => n + a.schritte.length, 0);
+    const dreiVon = '3/' + gesamtRk;
     for (const k of kartenRk.slice(0, 3)) await h1.click(`#karte-${k.nummer} [data-kuerzel="${k.richtig}"]`);
-    H.pruefe(await bis(laptop, () => {
+    H.pruefe(await bis(laptop, (d) => {
       const z = [...document.querySelectorAll('.s-karte')].find((k) => k.querySelector('.s-name').textContent === 'Mia');
-      return z && z.querySelector('[data-seite="regelkreis"] .s-zahl').textContent.startsWith('3/15');
-    }), 'Beamer: Mia A1 3/15 (nach drei Antworten)');
+      return z && z.querySelector('[data-seite="regelkreis"] .s-zahl').textContent.startsWith(d);
+    }, dreiVon), `Beamer: Mia A1 ${dreiVon} (nach drei Antworten)`);
     H.pruefe(await bis(h1, (t) => document.getElementById('anmelde-status').textContent === t, T.gesendet), 'Handy zeigt „Stand übertragen“');
 
     // ---------- Handy 2: Ben, Raumcode per Adresse, B1 komplett ----------
@@ -117,11 +119,9 @@ async function bis(seite, fn, arg, ms = 12000) {
     await h1.goto(basis + 'sicher.html');
     H.pruefe(await bis(h1, () => !!document.querySelector('.anmeldung.angemeldet')), 'Auf der zweiten Übung weiter angemeldet');
     await h1.click('#karte-1 [data-kuerzel="' + si.abschnitte[0].karten[0].richtig + '"]');
-    H.pruefe(await bis(laptop, () => {
-      const z = [...document.querySelectorAll('.s-karte')].find((k) => k.querySelector('.s-name').textContent === 'Mia' || k.querySelector('.s-name').textContent === 'Mia (2)');
-      return [...document.querySelectorAll('.s-karte')].some((k) => k.querySelector('[data-seite="regelkreis"] .s-zahl').textContent.startsWith('3/15') &&
-        k.querySelector('[data-seite="sicher"] .s-zahl').textContent.startsWith('1/10'));
-    }), 'Beamer: dieselbe Zeile zeigt A1 3/15 und B1 1/10');
+    H.pruefe(await bis(laptop, (d) => [...document.querySelectorAll('.s-karte')].some((k) =>
+      k.querySelector('[data-seite="regelkreis"] .s-zahl').textContent.startsWith(d) &&
+      k.querySelector('[data-seite="sicher"] .s-zahl').textContent.startsWith('1/10')), dreiVon), `Beamer: dieselbe Zeile zeigt A1 ${dreiVon} und B1 1/10`);
 
     // ---------- Offline: Stand wird nachgereicht ----------
     console.log('\n== Offline');

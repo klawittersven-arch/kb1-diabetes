@@ -177,7 +177,8 @@ zeilen = [
     ('Aufgabe / Zeit', 'Bezug zur Klassenarbeit (KB 1, v4) und Begründung Papier/Smartphone'),
     ('A1 Handy · A2 Papier (≈ 15 Min.)',
      'Aufgabe 3 (Regelkreis in 5 Schritten; je fehlendem Fachbegriff 0,5 P. Abzug). Glykogen, Glykogenese und Glykogenolyse kamen auf den bisherigen AB nicht vor. '
-     'A1 am Handy: Wortbausteine und Reihenfolge mit Sofort-Rückmeldung. A2 auf Papier, weil die Klausur das freie Aufschreiben mit allen Fachbegriffen verlangt.'),
+     'A1 am Handy: Wortbausteine und Reihenfolge mit Sofort-Rückmeldung. A2 auf Papier, weil die Klausur das freie Aufschreiben mit allen Fachbegriffen verlangt. '
+     'Außerdem Aufgabe 2 (Typ 1/Typ 2): A1 Teil 4 klärt, dass eine Insulintherapie nicht Typ 1 bedeutet und warum viele Menschen mit Typ 2 im Verlauf Insulin brauchen.'),
     ('Achtung: AB „So regelt Insulin den Blutzucker“',
      'Im Infotext steht vereinfacht: „… Diesen Prozess nennt man Glukoneogenese.“ Fachlich genau: Die Leber baut Glykogen ab (Glykogenolyse) und bildet neue Glukose (Glukoneogenese). '
      'Die App (A1, Teil 3) und der Merksatz A1 stellen das richtig. Empfehlung: den Satz im Unterricht kurz auf dem alten AB korrigieren lassen (1 Min.).'),
@@ -188,7 +189,7 @@ zeilen = [
     ('Zeitpuffer', 'Das AB dauert ca. 30 Min. Restzeit: Fragen klären oder die Ich-kann-Liste gemeinsam durchgehen. Wer nicht fertig wird, beendet B1/B2 zu Hause.'),
     ('Material', 'Handys mit Kamera (sonst Tandems oder den Link abtippen). Die Übungen funktionieren nach dem ersten Laden auch bei schlechtem WLAN. '
      'Gespeichert wird nur für die Beamer-Anzeige (Vorname + Stand, bei Cloudflare, Löschung nach 6 Std.); wer „Ohne Anzeige weiter“ wählt, sendet nichts.'),
-    ('Schutz gegen Durchklicken', 'Den Merksatz gibt es nur, wenn genug Aufgaben beim ersten Versuch richtig sind (A1: 10 von 15, B1: 7 von 10); sonst muss die Übung neu gestartet werden.'),
+    ('Schutz gegen Durchklicken', 'Den Merksatz gibt es nur, wenn genug Aufgaben beim ersten Versuch richtig sind (A1: 11 von 17, B1: 7 von 10); sonst muss die Übung neu gestartet werden.'),
     ('Fortschritt am Beamer', 'klawittersven-arch.github.io/kb1-diabetes/fortschritt.html öffnen → „Neuen Raum starten“ → Raumcode zeigen. Die SuS geben in der Übung Vorname + Raumcode ein; '
      'angezeigt wird je Person „x von y gelöst“ für A1 und B1 (Haken = Merksatz erreicht, Warndreieck = zu viel geraten). „Namen verbergen“ zeigt nur „Person 1, 2 …“. '
      'Alles wird nach 6 Stunden automatisch gelöscht. Probeansicht: …/fortschritt.html?demo=1'),

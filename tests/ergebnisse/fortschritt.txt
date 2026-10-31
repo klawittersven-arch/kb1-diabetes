@@ -2,7 +2,7 @@
 == Beamer-Seite: Raum starten
   ✓ Startseite sichtbar
   ✓ „Neuen Raum starten“ ist bedienbar (Adresse eingetragen)
-  ✓ Raumcode angezeigt: 7966
+  ✓ Raumcode angezeigt: 3708
   ✓ „Warten auf die ersten Anmeldungen …“
 
 == Handy 1 (Mia): Anmeldung
@@ -14,7 +14,7 @@
   ✓ Angemeldet-Zeile erscheint
   ✓ Zeile zeigt Name und Raum
   ✓ Beamer zeigt „Mia“
-  ✓ Beamer: Mia A1 3/15 (nach drei Antworten)
+  ✓ Beamer: Mia A1 3/17 (nach drei Antworten)
   ✓ Handy zeigt „Stand übertragen“
 
 == Handy 2 (Ben): B1 vollständig
@@ -28,7 +28,7 @@
 
 == Handy 1 wechselt zur zweiten Übung
   ✓ Auf der zweiten Übung weiter angemeldet
-  ✓ Beamer: dieselbe Zeile zeigt A1 3/15 und B1 1/10
+  ✓ Beamer: dieselbe Zeile zeigt A1 3/17 und B1 1/10
 
 == Offline
   ✓ Ohne Netz: „Gerade keine Verbindung …“

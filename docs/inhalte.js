@@ -157,7 +157,7 @@ var INHALTE = {
       }
     ],
 
-    mindestensErsterVersuch: 10,
+    mindestensErsterVersuch: 11,
 
     abschnitte: [
       {
@@ -264,8 +264,37 @@ var INHALTE = {
         ]
       },
       {
+        ueberschrift: 'Teil 4 · Typ 1 oder Typ 2?',
+        anweisung: 'Was entscheidet über den Diabetestyp – die Ursache oder die Behandlung?',
+        karten: [
+          {
+            nummer: 11,
+            text: 'Frau Schneider hat seit 13 Jahren Diabetes mellitus Typ 2 und spritzt inzwischen Insulin. Ihre Tochter fragt: „Dann hat Mama jetzt also Typ 1?“ Was stimmt?',
+            antworten: [
+              { kuerzel: 'J', text: 'Ja – wer Insulin spritzt, hat Typ 1.' },
+              { kuerzel: 'N', text: 'Nein – sie hat weiter Typ 2. Der Typ hängt von der Ursache ab, nicht von der Behandlung.' }
+            ],
+            richtig: 'N',
+            erklaerung: 'Typ 1: Eine Autoimmunreaktion zerstört die β-Zellen → absoluter Insulinmangel. Typ 2: Die Zellen reagieren vermindert auf Insulin (Insulinresistenz); im Verlauf bildet der Körper oft immer weniger Insulin. Deshalb brauchen auch viele Menschen mit Typ 2 irgendwann Insulin – der Typ bleibt.',
+            tipp: 'Wodurch entsteht Typ 1? Ändert eine Insulinspritze etwas an dieser Ursache?'
+          },
+          {
+            nummer: 12,
+            text: 'Warum brauchen viele Menschen mit Typ-2-Diabetes im Lauf der Jahre Insulin?',
+            antworten: [
+              { kuerzel: 'U', text: 'Weil sich ihr Diabetes in Typ 1 umwandelt.' },
+              { kuerzel: 'W', text: 'Weil der Körper im Verlauf immer weniger eigenes Insulin bildet.' },
+              { kuerzel: 'H', text: 'Weil Insulin die Insulinresistenz heilt.' }
+            ],
+            richtig: 'W',
+            erklaerung: 'Bei Typ 2 lässt die Insulinbildung der β-Zellen im Verlauf nach – bis hin zum absoluten Insulinmangel. Der Diabetes bleibt trotzdem Typ 2.',
+            tipp: 'Denken Sie an das AB „Vergleichen und Zusammenhänge erklären“: Was passiert bei Typ 2 im Verlauf mit der Insulinbildung?'
+          }
+        ]
+      },
+      {
         art: 'reihenfolge',
-        ueberschrift: 'Teil 4 · Der Regelkreis in 5 Schritten',
+        ueberschrift: 'Teil 5 · Der Regelkreis in 5 Schritten',
         anweisung: 'Tippen Sie die Schritte in der richtigen Reihenfolge an – von der Mahlzeit bis zum erneuten Anstieg des Blutzuckers.',
         schritte: [
           { text: 'Kohlenhydratreiche Mahlzeit: Blutzucker ↑', tipp: 'Womit beginnt der Regelkreis?' },

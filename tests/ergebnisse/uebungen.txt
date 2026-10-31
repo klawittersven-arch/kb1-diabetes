@@ -1,10 +1,10 @@
 
 == regelkreis.html
   ✓ Merksatz steht vor dem Lösen nirgends in der Seite
-  ✓ 10 Karten
+  ✓ 12 Karten
   ✓ Nummerierung fortlaufend
-  ✓ 4 Teile mit Überschrift
-  ✓ Fortschritt „0 von 15 gelöst“
+  ✓ 5 Teile mit Überschrift
+  ✓ Fortschritt „0 von 17 gelöst“
   ✓ 1 Infokarte(n)
   ✓ Infokarte 1 ist offen
   ✓ Infokarte 1: alle Punkte sichtbar, **fett** ohne Sternchen
@@ -78,6 +78,16 @@
   ✓ Karte 10: Lösung nach X nicht verraten
   ✓ Karte 10: richtige Antwort → ✓ und Erklärung
   ✓ Karte 10: danach alle Knöpfe gesperrt
+  ✓ Karte 11: falsche Antwort J → ✗, deaktiviert, Tipp sichtbar
+  ✓ Karte 11: Lösung nach J nicht verraten
+  ✓ Karte 11: richtige Antwort → ✓ und Erklärung
+  ✓ Karte 11: danach alle Knöpfe gesperrt
+  ✓ Karte 12: falsche Antwort U → ✗, deaktiviert, Tipp sichtbar
+  ✓ Karte 12: Lösung nach U nicht verraten
+  ✓ Karte 12: falsche Antwort H → ✗, deaktiviert, Tipp sichtbar
+  ✓ Karte 12: Lösung nach H nicht verraten
+  ✓ Karte 12: richtige Antwort → ✓ und Erklärung
+  ✓ Karte 12: danach alle Knöpfe gesperrt
   ✓ Reihenfolge: 5 Schritte, gemischt angezeigt
   ✓ Schritt 1: falscher Schritt → Tipp „Womit beginnt der Regelkreis?…“
   ✓ Schritt 1: falsch getippter Schritt vorerst gesperrt
@@ -201,4 +211,4 @@
   ✓ Keine Fehler in der Konsole
   ✓ Keine Anfragen an fremde Adressen
 
-194 von 194 Prüfungen bestanden.
+204 von 204 Prüfungen bestanden.
