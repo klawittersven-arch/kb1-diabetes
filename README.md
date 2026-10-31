@@ -24,7 +24,7 @@ Spätfolgen sind **nicht** enthalten – sie wurden mit AB 01 (Gruppenpuzzle) un
 ## Dateien
 
 ```
-arbeitsblatt/        ← Arbeitsblatt (AFG) und Lösung mit Lehrkraft-Hinweisen (LSG), je .docx und .pdf
+arbeitsblatt/        ← 03_…_AFG (Arbeitsblatt) und 03_…_LSG (Lösung mit Lehrkraft-Hinweisen), je .docx und .pdf
 docs/                ← alles, was GitHub Pages veröffentlicht (die Web-App)
   inhalte.js         ← ALLE Texte (Übungen, Anmeldung am Handy, Beamer-Seite)
   config.js          ← Einstellungen der Fortschrittsanzeige (Worker-Adresse, Sperrwörter …)
@@ -37,7 +37,8 @@ wrangler.jsonc       ← Cloudflare-Konfiguration (Projekt „kb1-diabetes“)
 qr/                  ← QR-Codes (PNG) für regelkreis.html und sicher.html
 werkzeuge/
   qr_erzeugen.py     ← erzeugt und prüft die QR-Codes
-  ab_erstellen.js    ← erzeugt Arbeitsblatt und Lösung als .docx (Bilder in werkzeuge/bilder/)
+  ab_erstellen.js    ← erzeugte die erste Fassung von Arbeitsblatt und Lösung (Bilder in werkzeuge/bilder/)
+  lsg_aus_afg.py     ← erzeugt die Lösung aus dem (von Hand überarbeiteten) Arbeitsblatt 03_…_AFG.docx
 tests/               ← automatische Tests (Playwright, lokaler Worker), Ergebnisse in tests/ergebnisse/
 ```
 
