@@ -6,7 +6,7 @@
  * Nach größeren Änderungen VERSION erhöhen – dann wird der Speicher erneuert. */
 'use strict';
 
-var VERSION = 'v1';
+var VERSION = 'v2';
 var CACHE = 'kb1-diabetes-' + VERSION;
 var ZEITLIMIT_MS = 4000;
 
@@ -15,8 +15,13 @@ var DATEIEN = [
   'index.html',
   'regelkreis.html',
   'sicher.html',
+  'fortschritt.html',
   'style.css',
   'inhalte.js',
+  'config.js',
+  'melden.js',
+  'fortschritt.js',
+  'fortschritt.css',
   'gemeinsam.js',
   'app.js'
 ];

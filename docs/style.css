@@ -228,3 +228,35 @@ a { color: var(--petrol); }
   .knoepfe-3 { grid-template-columns: repeat(3, 1fr); }
   .knoepfe-lang { grid-template-columns: 1fr; }
 }
+
+/* ---------- Fortschritt am Beamer: Anmeldung auf dem Handy ---------- */
+.anmeldung { margin: 0 0 16px; padding: 12px 14px; background: #fff; border: 2px solid var(--petrol); border-radius: 12px; }
+.anmeldung h2 { margin: 0 0 4px; font-size: 20px; color: var(--dunkelpetrol); }
+.anmelde-text { margin: 0 0 10px; }
+.anmelde-felder { display: grid; gap: 10px; }
+.anmelde-feld label { display: block; font-weight: 700; margin-bottom: 4px; }
+.anmelde-feld input {
+  width: 100%; min-height: 48px; padding: 8px 10px; font: inherit; font-size: 19px;
+  border: 2px solid var(--rand); border-radius: 10px; color: var(--text); background: #fff;
+}
+.anmelde-feld input.code { letter-spacing: .25em; font-weight: 800; font-variant-numeric: tabular-nums; }
+.anmelde-feld input:focus { outline: 3px solid #F2B600; outline-offset: 1px; border-color: var(--petrol); }
+.anmelde-fehler { margin: 10px 0 0; padding: 8px 10px; background: var(--bernstein-hell); border-left: 6px solid var(--bernstein-rand); border-radius: 8px; color: #4D2A00; font-weight: 600; }
+.anmelde-fehler:empty { display: none; }
+.anmelde-knoepfe { display: grid; gap: 10px; margin-top: 12px; }
+.anmelde-los { background: var(--petrol); color: #fff; border: 2px solid var(--petrol); }
+.anmelde-los:disabled { opacity: .6; }
+.anmeldung.angemeldet { padding: 8px 12px; border-width: 1px; background: var(--hellblau); }
+.anmelde-wer { margin: 0; font-weight: 600; }
+.anmelde-status { margin: 2px 0 0; font-size: 17px; color: #3A5157; }
+.anmelde-status.offline { color: var(--bernstein); font-weight: 600; }
+.anmelde-status.gesendet { color: var(--gruen); }
+.textknopf {
+  font: inherit; font-size: 17px; color: var(--petrol); background: none; border: none; padding: 6px 2px;
+  min-height: 44px; text-decoration: underline; cursor: pointer;
+}
+.anmelde-doch { display: block; margin: 0 0 12px; }
+@media (min-width: 600px) {
+  .anmelde-felder { grid-template-columns: 1fr 1fr; }
+  .anmelde-knoepfe { grid-template-columns: 1fr 1fr; }
+}

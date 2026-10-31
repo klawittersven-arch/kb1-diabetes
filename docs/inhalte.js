@@ -66,10 +66,73 @@ var INHALTE = {
   start: {
     titel: 'Regelkreis & sicheres Handeln – Übungen',
     einleitung: 'Scannen Sie den QR-Code bei der Aufgabe auf Ihrem Arbeitsblatt – oder wählen Sie hier die Übung aus.',
+    // kurz = Spaltenbeschriftung auf der Beamer-Seite (fortschritt.html)
     links: [
-      { seite: 'regelkreis', text: 'A1 · Wortbaustein-Detektiv' },
-      { seite: 'sicher', text: 'B1 · Sicher entscheiden' }
+      { seite: 'regelkreis', kurz: 'A1', text: 'A1 · Wortbaustein-Detektiv' },
+      { seite: 'sicher', kurz: 'B1', text: 'B1 · Sicher entscheiden' }
     ]
+  },
+
+  /* ------------------------------------------------------------------------
+     FORTSCHRITT AM BEAMER – Anmeldung auf dem Handy (oben in jeder Übung)
+     {name} und {raum} werden automatisch ersetzt.
+     ------------------------------------------------------------------------ */
+  melden: {
+    titel: '📺 Fortschritt am Beamer',
+    text: 'Geben Sie Ihren Vornamen und den Raumcode vom Beamer ein. Dann sieht Ihre Lehrkraft, wie weit Sie sind – nur „x von y gelöst“, keine einzelnen Antworten.',
+    nameLabel: 'Vorname',
+    raumLabel: 'Raumcode (4 Ziffern, steht am Beamer)',
+    mitmachen: 'Mitmachen',
+    ohne: 'Ohne Anzeige weiter',
+    dochMitmachen: '📺 Beim Beamer-Fortschritt mitmachen',
+    angemeldet: 'Angemeldet als {name} · Raum {raum}',
+    aendern: 'ändern',
+    gesendet: '✓ Stand übertragen',
+    sendet: 'Stand wird übertragen …',
+    offline: 'Gerade keine Verbindung – der Stand wird nachgereicht.',
+    fehlerNameLaenge: 'Bitte geben Sie Ihren Vornamen ein (2 bis 20 Zeichen).',
+    fehlerNameZeichen: 'Bitte nur Buchstaben, Ziffern, Leerzeichen und Bindestrich verwenden.',
+    fehlerNameWort: 'Bitte wählen Sie einen anderen Namen.',
+    fehlerRaum: 'Der Raumcode hat genau 4 Ziffern.',
+    fehlerUnbekannt: 'Diesen Raumcode gibt es nicht (mehr). Bitte schauen Sie am Beamer nach.',
+    fehlerVoll: 'Der Raum ist voll. Bitte sagen Sie Ihrer Lehrkraft Bescheid.',
+    fehlerEntfernt: 'Ihr Eintrag wurde von der Lehrkraft entfernt. Sie können sich neu anmelden.'
+  },
+
+  /* ------------------------------------------------------------------------
+     FORTSCHRITT AM BEAMER – Seite für die Lehrkraft (fortschritt.html)
+     ------------------------------------------------------------------------ */
+  beamer: {
+    titel: 'Fortschritt · Regelkreis & sicheres Handeln',
+    startTitel: 'Fortschritt am Beamer',
+    startText: 'Starten Sie einen Raum und zeigen Sie den Raumcode. Die Schülerinnen und Schüler geben in der Übung ihren Vornamen und den Code ein. Angezeigt wird nur „x von y gelöst“ je Übung – keine einzelnen Antworten. Nach 6 Stunden wird alles automatisch gelöscht.',
+    starten: 'Neuen Raum starten',
+    nichtEingerichtet: 'Die Fortschrittsanzeige ist noch nicht eingerichtet: In docs/config.js fehlt FORTSCHRITT_URL. Siehe README, Abschnitt „Fortschritt am Beamer“.',
+    startFehler: 'Der Raum konnte nicht gestartet werden. Bitte prüfen Sie die Internetverbindung und versuchen Sie es noch einmal.',
+    raumcode: 'Raumcode',
+    raumHinweis: 'In der Übung: Vorname + Raumcode',
+    warten: 'Warten auf die ersten Anmeldungen …',
+    angemeldet: '{n} angemeldet',
+    fertigZahl: '{kurz} fertig: {x}',
+    legendeFertig: '✓ Merksatz erreicht',
+    legendeDurch: '⚠ zu viel geraten',
+    aktualisiert: 'aktualisiert {uhr} Uhr',
+    getrennt: 'keine Verbindung – neuer Versuch läuft …',
+    namenVerbergen: 'Namen verbergen',
+    namenZeigen: 'Namen zeigen',
+    person: 'Person {n}',
+    vollbild: 'Vollbild',
+    vollbildAus: 'Vollbild beenden',
+    leeren: 'Liste leeren',
+    leerenFrage: 'Alle Einträge entfernen? Handys, die weiterarbeiten, erscheinen beim nächsten gelösten Schritt wieder.',
+    neuerRaum: 'Neuer Raum',
+    neuerRaumFrage: 'Neuen Raum starten? Alle müssen dann den neuen Code eingeben.',
+    entfernenFrage: '„{name}“ entfernen? Das Handy kann sich danach neu anmelden.',
+    entfernen: 'Entfernen',
+    abbrechen: 'Abbrechen',
+    ja: 'Ja',
+    abgelaufen: 'Der Raum ist abgelaufen. Bitte starten Sie einen neuen Raum.',
+    demo: 'Probeansicht mit erfundenen Namen'
   },
 
   /* ------------------------------------------------------------------------

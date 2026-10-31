@@ -26,14 +26,19 @@ Spätfolgen sind **nicht** enthalten – sie wurden mit AB 01 (Gruppenpuzzle) un
 ```
 arbeitsblatt/        ← Arbeitsblatt (AFG) und Lösung mit Lehrkraft-Hinweisen (LSG), je .docx und .pdf
 docs/                ← alles, was GitHub Pages veröffentlicht (die Web-App)
-  inhalte.js         ← ALLE Texte der Übungen (hier ändern Sie Aufgaben, Tipps, Merksätze …)
+  inhalte.js         ← ALLE Texte (Übungen, Anmeldung am Handy, Beamer-Seite)
+  config.js          ← Einstellungen der Fortschrittsanzeige (Worker-Adresse, Sperrwörter …)
   index.html, regelkreis.html, sicher.html
-  app.js, gemeinsam.js, style.css, sw.js   ← Programmlogik, Gestaltung, Offline-Speicher
+  fortschritt.html   ← Fortschritt am Beamer (für die Lehrkraft, nirgends verlinkt)
+  app.js, melden.js, fortschritt.js, gemeinsam.js   ← Programmlogik
+  style.css, fortschritt.css, sw.js                 ← Gestaltung, Offline-Speicher
+worker/              ← Cloudflare-Worker für die Fortschrittsanzeige (src/index.js, wrangler.jsonc)
+.github/workflows/fortschritt-worker.yml   ← veröffentlicht den Worker automatisch
 qr/                  ← QR-Codes (PNG) für regelkreis.html und sicher.html
 werkzeuge/
   qr_erzeugen.py     ← erzeugt und prüft die QR-Codes
   ab_erstellen.js    ← erzeugt Arbeitsblatt und Lösung als .docx (Bilder in werkzeuge/bilder/)
-tests/               ← automatische Tests (Playwright), Ergebnisse in tests/ergebnisse/
+tests/               ← automatische Tests (Playwright, lokaler Worker), Ergebnisse in tests/ergebnisse/
 ```
 
 ## GitHub Pages einschalten (einmalig, ca. 2 Minuten)
@@ -54,6 +59,65 @@ Die QR-Codes im Arbeitsblatt zeigen bereits auf diese Adressen.
 „Build output directory“: `docs`. Dann ändern sich allerdings die Adressen – QR-Codes und
 Arbeitsblatt müssen neu erzeugt werden (siehe unten, Basisadresse in `werkzeuge/qr_erzeugen.py`
 und `werkzeuge/ab_erstellen.js` anpassen).
+
+## Fortschritt am Beamer
+
+Die SuS geben oben in der Übung ihren **Vornamen** und den **Raumcode** ein. Auf
+`https://klawittersven-arch.github.io/kb1-diabetes/fortschritt.html` sehen Sie live, wie weit
+alle sind: je Person ein Balken für A1 und B1 („x von y gelöst“), ✓ = Merksatz erreicht,
+⚠ = zu viel geraten (Übung musste neu gestartet werden). Einzelne Antworten werden **nicht**
+übertragen. Wer „Ohne Anzeige weiter“ wählt, arbeitet ganz normal – es wird nichts gesendet.
+
+### Einrichtung (einmalig, ca. 10 Minuten)
+
+1. **Cloudflare-API-Token erstellen:** https://dash.cloudflare.com/profile/api-tokens →
+   „Create Token“ → Vorlage **„Edit Cloudflare Workers“** → „Use template“. Bei „Account
+   Resources“ Ihr Konto wählen, bei „Zone Resources“ „All zones“ lassen → „Continue to
+   summary“ → „Create Token“. Den angezeigten Token kopieren (er wird nur einmal gezeigt).
+2. **Konto-ID kopieren:** Im Cloudflare-Dashboard links „Workers & Pages“ öffnen; rechts steht
+   unter „Account details“ die **Account ID**. (Falls Cloudflare dort nach einer
+   `workers.dev`-Subdomain fragt: einmal einen Namen wählen und bestätigen.)
+3. **Beides in GitHub hinterlegen:** Repository → **Settings** → **Secrets and variables** →
+   **Actions** → „New repository secret“:
+   - Name `CLOUDFLARE_API_TOKEN`, Wert: der Token aus Schritt 1
+   - Name `CLOUDFLARE_ACCOUNT_ID`, Wert: die Account ID aus Schritt 2
+4. **Veröffentlichen:** Repository → **Actions** → links „Fortschritt-Worker veröffentlichen“ →
+   „Run workflow“ → „Run workflow“. Nach ca. 1 Minute ist der Worker online. Der Workflow trägt
+   seine Adresse automatisch in `docs/config.js` ein (Commit von „github-actions[bot]“);
+   1–2 Minuten später ist auch GitHub Pages aktualisiert.
+
+Ab dann wird der Worker bei jeder Änderung im Ordner `worker/` automatisch neu veröffentlicht.
+Klappt Schritt 4 nicht, steht der Grund im Protokoll des Workflows (Actions → letzter Lauf).
+
+### Im Unterricht
+
+1. Am Laptop `…/kb1-diabetes/fortschritt.html` öffnen → **„Neuen Raum starten“**.
+2. Der vierstellige **Raumcode** steht groß oben rechts. Die SuS tragen ihn mit ihrem Vornamen in
+   der Übung ein (einmal genügt – das Handy merkt sich beides 3 Stunden, auch für die zweite
+   Übung). Tipp: `…/regelkreis.html?raum=4821` füllt den Code schon aus.
+3. **Vollbild** für den Beamer. **Namen verbergen** zeigt „Person 1, 2 …“ statt Namen – z. B.
+   wenn die Klasse den Stand sehen soll, ohne dass Einzelne bloßgestellt werden.
+4. Klick auf einen Eintrag → **Entfernen** (z. B. Spaßnamen; das Handy kann sich neu anmelden).
+   **Liste leeren** entfernt alle Einträge. **Neuer Raum** für die nächste Klasse.
+5. Ein versehentliches Neuladen der Seite ist unproblematisch: Raum und Einträge bleiben.
+
+**Probeansicht ohne Internet:** `…/fortschritt.html?demo=1` zeigt erfundene Namen – ideal, um vorab
+das Aussehen am Beamer zu prüfen.
+
+### Technik, Datenschutz und Kosten
+
+- Das Handy schickt nach jeder Antwort `{ Raumcode, Zufalls-Geräte-ID, Vorname, Übung, x, y,
+  Status }` per HTTPS an den Worker. Ohne Netz wird der letzte Stand nachgereicht.
+- Der Worker speichert je Raum (ein „Durable Object“) nur diese Angaben. **Lesen kann nur Ihr
+  Browser** (geheimer Schlüssel, der beim Starten des Raums entsteht). **Nach 6 Stunden wird der
+  Raum samt allen Einträgen automatisch gelöscht** (`LEBENSDAUER_MINUTEN` in
+  `worker/wrangler.jsonc`). Cloudflare-Protokolle sind abgeschaltet.
+- Bitte nur Vornamen verwenden (Hinweis an die Klasse). Ein Sperrwort-Filter (`SPERRWOERTER` in
+  `docs/config.js`) lehnt grobe Namen ab.
+- Der kostenlose Cloudflare-Tarif reicht aus (100 000 Anfragen am Tag; eine Stunde mit
+  30 SuS braucht etwa 3 000).
+- Ist keine Worker-Adresse eingetragen oder Cloudflare nicht erreichbar, funktionieren die
+  Übungen ganz normal – nur die Anzeige bleibt leer.
 
 ## Texte ändern (`docs/inhalte.js`)
 
@@ -76,9 +140,9 @@ Prüfung ab.
 
 ## Datenschutz
 
-Keine Anmeldung, keine Cookies, keine Analyse, keine fremden Schriften oder Skripte. Die
-Übungen übertragen keine Daten; der Bearbeitungsstand liegt nur im Browser des Handys
-(sessionStorage/localStorage). Nach dem ersten Aufruf funktionieren die Seiten auch offline
+Keine Cookies, keine Analyse, keine fremden Schriften oder Skripte. Die Übungen übertragen nur
+dann etwas, wenn sich jemand für die Fortschrittsanzeige anmeldet (siehe oben); der
+Bearbeitungsstand selbst liegt im Browser des Handys (sessionStorage/localStorage). Nach dem ersten Aufruf funktionieren die Seiten auch offline
 (Service Worker). Nach größeren Änderungen in `docs/sw.js` `var VERSION = 'v1';` erhöhen.
 
 ## QR-Codes und Arbeitsblatt neu erzeugen
@@ -98,9 +162,11 @@ Die PDF-Fassungen entstehen z. B. mit LibreOffice:
 ## Tests
 
 ```
+cd worker && npm install && cd ..   # Wrangler für den lokalen Worker
 cd tests
 npm install            # installiert Playwright
 npx playwright install chromium
 node uebungen.test.js            # beide Übungen in Handygröße 390 × 844
 node offline_datenschutz.test.js # Offline, externe Adressen, Cookies, Dateigrößen
+node fortschritt.test.js         # Beamer + mehrere Handys mit lokalem Worker (wrangler dev)
 ```

@@ -1,0 +1,93 @@
+# Veröffentlicht den Cloudflare-Worker für die Fortschrittsanzeige am Beamer
+# und trägt seine Adresse automatisch in docs/config.js ein.
+#
+# Einmalig nötig (siehe README, Abschnitt „Fortschritt am Beamer“):
+#   Repository → Settings → Secrets and variables → Actions → „New repository secret“
+#     CLOUDFLARE_API_TOKEN   (Cloudflare-API-Token, Vorlage „Edit Cloudflare Workers“)
+#     CLOUDFLARE_ACCOUNT_ID  (Ihre Cloudflare-Konto-ID)
+# Danach: Actions → „Fortschritt-Worker veröffentlichen“ → „Run workflow“.
+name: Fortschritt-Worker veröffentlichen
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'worker/**'
+      - '.github/workflows/fortschritt-worker.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: fortschritt-worker
+  cancel-in-progress: false
+
+jobs:
+  veroeffentlichen:
+    runs-on: ubuntu-latest
+    env:
+      HAT_ZUGANG: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+    steps:
+      - name: Zugangsdaten prüfen
+        if: env.HAT_ZUGANG != 'true'
+        run: |
+          echo "::warning::Die Secrets CLOUDFLARE_API_TOKEN und CLOUDFLARE_ACCOUNT_ID fehlen noch (siehe README, Abschnitt „Fortschritt am Beamer“). Der Worker wurde nicht veröffentlicht."
+
+      - name: Repository auschecken
+        if: env.HAT_ZUGANG == 'true'
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        if: env.HAT_ZUGANG == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Abhängigkeiten installieren
+        if: env.HAT_ZUGANG == 'true'
+        working-directory: worker
+        run: npm ci --no-audit --no-fund
+
+      - name: Worker veröffentlichen
+        id: deploy
+        if: env.HAT_ZUGANG == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          workingDirectory: worker
+          command: deploy
+
+      - name: Adresse in docs/config.js eintragen
+        if: env.HAT_ZUGANG == 'true'
+        env:
+          ADRESSE: ${{ steps.deploy.outputs.deployment-url }}
+          AUSGABE: ${{ steps.deploy.outputs.command-output }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          URL="$ADRESSE"
+          if [ -z "$URL" ]; then
+            URL=$(printf '%s' "$AUSGABE" | grep -oE 'https://[A-Za-z0-9.-]+\.workers\.dev' | head -n 1)
+          fi
+          URL="${URL%/}"
+          if ! printf '%s' "$URL" | grep -qE '^https://[A-Za-z0-9.-]+\.workers\.dev$'; then
+            echo "::warning::Die Adresse des Workers wurde nicht gefunden. Bitte von Hand in docs/config.js bei FORTSCHRITT_URL eintragen."
+            exit 0
+          fi
+          echo "Worker-Adresse: $URL"
+          curl -fsS "$URL/" || echo "::warning::Der Worker antwortet noch nicht – das kann ein, zwei Minuten dauern."
+          sed -i -E "s#FORTSCHRITT_URL: '[^']*'#FORTSCHRITT_URL: '$URL'#" docs/config.js
+          if git diff --quiet -- docs/config.js; then
+            echo "Die Adresse war bereits eingetragen."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/config.js
+          git commit -m "Fortschrittsanzeige: Worker-Adresse in config.js eingetragen"
+          git push
+          # GitHub Pages neu bauen lassen (Pushes aus Workflows lösen das nicht immer aus)
+          curl -fsS -X POST -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" || echo "GitHub Pages wird beim nächsten Push neu gebaut."

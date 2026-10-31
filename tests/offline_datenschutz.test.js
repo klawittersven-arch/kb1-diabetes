@@ -28,11 +28,12 @@ const H = require('./hilfen');
   H.pruefe(seiten.every((d) => liste.includes(d)), 'sw.js listet jede HTML-, JS- und CSS-Datei', seiten.filter((d) => !liste.includes(d)));
 
   await ctx.setOffline(true);
-  for (const s of ['index.html', 'regelkreis.html', 'sicher.html']) {
+  for (const s of ['index.html', 'regelkreis.html', 'sicher.html', 'fortschritt.html']) {
     await p.goto(basis + s);
-    const ok = s === 'index.html' ? (await p.locator('.startlink').count()) === 2 : (await p.locator('.antwort').count()) > 0;
+    const ok = s === 'index.html' ? (await p.locator('.startlink').count()) === 2 : s === 'fortschritt.html' ? (await p.locator('#start-titel').innerText()).length > 0 : (await p.locator('.antwort').count()) > 0;
     H.pruefe(ok, `${s} funktioniert ohne Netz`);
   }
+  await p.goto(basis + 'sicher.html');
   await p.click('#karte-1 [data-kuerzel="' + (await p.evaluate(() => INHALTE.sicher.abschnitte[0].karten[0].richtig)) + '"]');
   H.pruefe((await p.locator('#karte-1.ist-richtig').count()) === 1, 'Antworten funktioniert auch offline');
   await ctx.setOffline(false);
@@ -40,10 +41,15 @@ const H = require('./hilfen');
   console.log('\n== Datenschutz');
   const cookies = await ctx.cookies();
   H.pruefe(cookies.length === 0, 'Keine Cookies', cookies);
-  const quelltext = fs.readdirSync(H.DOCS).filter((d) => /\.(html|js|css)$/.test(d))
-    .map((d) => fs.readFileSync(path.join(H.DOCS, d), 'utf8')).join('\n');
+  const lesen = (d) => fs.readFileSync(path.join(H.DOCS, d), 'utf8');
+  const dateien = fs.readdirSync(H.DOCS).filter((d) => /\.(html|js|css)$/.test(d));
+  // Einzige erlaubte fremde Adresse: der eigene Worker in config.js (FORTSCHRITT_URL)
+  const quelltext = dateien.map((d) => (d === 'config.js' ? lesen(d).replace(/FORTSCHRITT_URL: '[^']*'/, "FORTSCHRITT_URL: ''") : lesen(d))).join('\n');
   H.pruefe(!/https?:\/\//.test(quelltext.replace(/https?:\/\/(www\.)?w3\.org[^\s'"]*/g, '')), 'Keine externen Adressen im Quelltext (keine Schriften, Skripte, Analyse)');
-  H.pruefe(!/fetch\(|XMLHttpRequest|sendBeacon|WebSocket/.test(quelltext.replace(/fetch\(req/g, '')), 'Die Übungen senden keine Daten (nur der Service Worker lädt eigene Dateien)');
+  const sendende = dateien.filter((d) => /fetch\(|XMLHttpRequest|sendBeacon|WebSocket/.test(lesen(d)));
+  H.pruefe(JSON.stringify(sendende.sort()) === JSON.stringify(['fortschritt.js', 'melden.js', 'sw.js']),
+    'Daten senden nur melden.js (Fortschritt, nach Anmeldung) und fortschritt.js (Beamer); sw.js lädt eigene Dateien', sendende);
+  H.pruefe(!/fetch\(\s*['"]https?:/.test(quelltext) && /BASIS \+ '\/api\/melden'/.test(lesen('melden.js')), 'melden.js sendet nur an CONFIG.FORTSCHRITT_URL');
   H.pruefe(!/innerHTML\s*=/.test(quelltext), 'Kein innerHTML (Texte werden sicher eingefügt)');
 
   console.log('\n== Dateigrößen');

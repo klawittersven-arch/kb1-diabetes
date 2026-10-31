@@ -152,7 +152,7 @@ function erstelle(lsg) {
   inhalt.push(teil('Teil A · Regelkreis – die fehlenden Fachbegriffe', '≈ 15 Min.'));
   inhalt.push(aufgabe('handy', 'A1', 'Wortbaustein-Detektiv', '5 Min.'));
   inhalt.push(mitQR('regelkreis', [
-    p(t('Scannen Sie den QR-Code. Knacken Sie die Fachbegriffe Glykogenese, Glykogenolyse und Glukoneogenese und bringen Sie den Regelkreis in die richtige Reihenfolge. Bei einem Fehler bekommen Sie einen Tipp.')),
+    p([t('Scannen Sie den QR-Code und tragen Sie oben '), b('Vorname + Raumcode vom Beamer'), t(' ein. Knacken Sie die Fachbegriffe Glykogenese, Glykogenolyse und Glukoneogenese und bringen Sie den Regelkreis in die richtige Reihenfolge. Bei einem Fehler bekommen Sie einen Tipp.')]),
     p([b('Am Ende: '), t('Ergänzen Sie den Merksatz.')])
   ]));
   const msZeile = (begriff, bedeutung, hormon) => new Paragraph({
@@ -242,8 +242,9 @@ function erstelle(lsg) {
         hz(t('B1 Handy · B2 Papier (≈ 15 Min.)'), t('Aufgabe 5b (Notfallmaßnahmen beschreiben und begründen) und Aufgabe 4 (STOPP ohne Mahlzeit). B1 klärt außerdem „Insulin reduzieren“ aus der Hypo-Mindmap: Die Dosis ändert nur die Ärztin/der Arzt. B2 auf Papier, weil die Begründungen („…, weil …“) bisher nur als Stichworte in der Mindmap standen. Die Fälle weichen bewusst vom Klausurfall ab.')),
         hz(t('Nicht enthalten'), t('Spätfolgen (Aufgabe 7) – bereits mit AB 01 (Gruppenpuzzle) und AB 02 (Körperlandkarte, Mythen) bearbeitet.')),
         hz(t('Zeitpuffer'), t('Das AB dauert ca. 30–35 Min. Restzeit: Fragen klären oder die Ich-kann-Liste gemeinsam durchgehen. Wer nicht fertig wird, beendet B1/B2 zu Hause.')),
-        hz(t('Material'), t('Handys mit Kamera (sonst Tandems oder den Link abtippen). Die App braucht keine Anmeldung, speichert nichts auf einem Server und funktioniert nach dem ersten Laden auch bei schlechtem WLAN.')),
+        hz(t('Material'), t('Handys mit Kamera (sonst Tandems oder den Link abtippen). Die Übungen funktionieren nach dem ersten Laden auch bei schlechtem WLAN. Gespeichert wird nur für die Beamer-Anzeige (Vorname + Stand, bei Cloudflare, Löschung nach 6 Std.); wer „Ohne Anzeige weiter“ wählt, sendet nichts.')),
         hz(t('Schutz gegen Durchklicken'), t('Den Merksatz gibt es nur, wenn genug Aufgaben beim ersten Versuch richtig sind (A1: 10 von 15, B1: 7 von 10); sonst muss die Übung neu gestartet werden.')),
+        hz(t('Fortschritt am Beamer'), t('…/kb1-diabetes/fortschritt.html öffnen → „Neuen Raum starten“ → Raumcode zeigen. Die SuS geben in der Übung Vorname + Raumcode ein; angezeigt wird je Person „x von y gelöst“ für A1 und B1 (Haken = Merksatz erreicht, Warndreieck = zu viel geraten). „Namen verbergen“ zeigt nur „Person 1, 2 …“. Alles wird nach 6 Stunden automatisch gelöscht. Probeansicht: …/fortschritt.html?demo=1')),
         hz(t('Texte ändern'), t('Alle Texte der App stehen in docs/inhalte.js im Repository kb1-diabetes (auf GitHub mit dem Stift bearbeiten, „Commit changes“; nach 1–2 Min. online).'))
       ]
     }));

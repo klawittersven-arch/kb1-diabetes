@@ -99,6 +99,45 @@
     return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }
 
+  /* ---------- Vornamen prüfen (Handy) ---------- */
+  var ERLAUBT = /^[A-Za-z0-9ÄÖÜäöüßÀ-ÖØ-öø-ÿ _-]+$/;
+  var ERSATZ = { '0': 'o', '1': 'i', '3': 'e', '4': 'a', '5': 's', '7': 't', '8': 'b', '@': 'a', '$': 's' };
+
+  function normalisieren(text) {
+    var t = String(text).toLowerCase()
+      .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss');
+    var aus = '';
+    for (var i = 0; i < t.length; i++) {
+      var z = ERSATZ[t[i]] || t[i];
+      if (z >= 'a' && z <= 'z') aus += z;
+    }
+    return aus.replace(/(.)\1+/g, '$1'); // doppelte Buchstaben zusammenziehen
+  }
+
+  // Ergebnis: '' (in Ordnung), 'laenge', 'zeichen' oder 'wort'
+  function namePruefen(name) {
+    if (typeof name !== 'string') return 'zeichen';
+    var n = name.trim().replace(/\s+/g, ' ');
+    if (n.length < 2 || n.length > 20) return 'laenge';
+    if (!ERLAUBT.test(n)) return 'zeichen';
+    var norm = normalisieren(n);
+    var liste = (window.CONFIG && window.CONFIG.SPERRWOERTER) || [];
+    for (var i = 0; i < liste.length; i++) {
+      var wort = normalisieren(liste[i]);
+      if (wort && norm.indexOf(wort) !== -1) return 'wort';
+    }
+    return '';
+  }
+
+  function zufallsId(laenge) {
+    var zeichen = 'abcdefghijkmnpqrstuvwxyz23456789';
+    var aus = '';
+    var zahlen = new Uint8Array(laenge);
+    (window.crypto || window.msCrypto).getRandomValues(zahlen);
+    for (var i = 0; i < laenge; i++) aus += zeichen[zahlen[i] % zeichen.length];
+    return aus;
+  }
+
   /* ---------- Offline-Fähigkeit: Service Worker anmelden ---------- */
   if ('serviceWorker' in navigator && location.protocol !== 'file:') {
     window.addEventListener('load', function () {
@@ -112,6 +151,8 @@
     element: element,
     ersetzen: ersetzen,
     formatiert: formatiert,
-    ruhig: ruhig
+    ruhig: ruhig,
+    namePruefen: namePruefen,
+    zufallsId: zufallsId
   };
 })();

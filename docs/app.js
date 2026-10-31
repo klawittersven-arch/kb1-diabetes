@@ -334,6 +334,13 @@
     var y = gesamtZahl();
     fortschrittText.textContent = K.ersetzen(A.fortschritt, { x: n, y: y });
     fortschrittBalken.style.width = Math.round(n / y * 100) + '%';
+
+    // Fortschritt am Beamer (nur wenn angemeldet; siehe melden.js)
+    if (window.KB1Melden) {
+      var status = n < y ? 'arbeitet' :
+        (anzahlErsterVersuch() < (seite.mindestensErsterVersuch || 0) ? 'durchklicken' : 'fertig');
+      window.KB1Melden.stand(seiteId, n, y, status);
+    }
   }
 
   // Der Merksatz wird erst nach vollständiger Lösung in die Seite eingefügt.
