@@ -4,6 +4,7 @@
   ✓ 12 Karten
   ✓ Nummerierung fortlaufend
   ✓ 5 Teile mit Überschrift
+  ✓ Kein Link zur Übersicht (SuS bleiben in ihrer Aufgabe)
   ✓ Fortschritt „0 von 17 gelöst“
   ✓ 1 Infokarte(n)
   ✓ Infokarte 1 ist offen
@@ -129,6 +130,7 @@
   ✓ 10 Karten
   ✓ Nummerierung fortlaufend
   ✓ 3 Teile mit Überschrift
+  ✓ Kein Link zur Übersicht (SuS bleiben in ihrer Aufgabe)
   ✓ Fortschritt „0 von 10 gelöst“
   ✓ 0 Infokarte(n)
   ✓ Antwortknöpfe ≥ 48 px hoch, Schrift ≥ 17 px
@@ -215,4 +217,4 @@
   ✓ Keine Fehler in der Konsole
   ✓ Keine Anfragen an fremde Adressen
 
-208 von 208 Prüfungen bestanden.
+210 von 210 Prüfungen bestanden.

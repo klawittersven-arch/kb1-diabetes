@@ -6,7 +6,7 @@
  * Nach größeren Änderungen VERSION erhöhen – dann wird der Speicher erneuert. */
 'use strict';
 
-var VERSION = 'v7';
+var VERSION = 'v8';
 var CACHE = 'kb1-diabetes-' + VERSION;
 var ZEITLIMIT_MS = 4000;
 
