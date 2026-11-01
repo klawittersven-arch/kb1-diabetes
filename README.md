@@ -98,9 +98,14 @@ Minute automatisch online. Ob ein Update durchgelaufen ist, sieht man im Cloudfl
    Übung). Tipp: `…/regelkreis.html?raum=4821` füllt den Code schon aus.
 3. **Vollbild** für den Beamer. **Namen verbergen** zeigt „Person 1, 2 …“ statt Namen – z. B.
    wenn die Klasse den Stand sehen soll, ohne dass Einzelne bloßgestellt werden.
-4. Klick auf einen Eintrag → **Entfernen** (z. B. Spaßnamen; das Handy kann sich neu anmelden).
+4. **Anweisung A1 + A2** bzw. **Anweisung B1 + B2** (unten, gelb umrandet) blendet groß über den
+   Karten ein: „Bearbeiten Sie jetzt die Aufgaben A1 und A2!“ bzw. „… B1 und B2!“. Der Fortschritt
+   bleibt darunter sichtbar. Noch ein Klick auf denselben Knopf blendet die Anweisung wieder aus.
+   Texte und Knöpfe stehen in `docs/inhalte.js` → `beamer.anweisungen`.
+5. Klick auf einen Eintrag → **Entfernen** (z. B. Spaßnamen; das Handy kann sich neu anmelden).
    **Liste leeren** entfernt alle Einträge. **Neuer Raum** für die nächste Klasse.
-5. Ein versehentliches Neuladen der Seite ist unproblematisch: Raum und Einträge bleiben.
+6. Ein versehentliches Neuladen der Seite ist unproblematisch: Raum, Einträge und eine
+   eingeblendete Anweisung bleiben.
 
 **Probeansicht ohne Internet:** `…/fortschritt.html?demo=1` zeigt erfundene Namen – ideal, um vorab
 das Aussehen am Beamer zu prüfen.
@@ -170,4 +175,5 @@ npx playwright install chromium
 node uebungen.test.js            # beide Übungen in Handygröße 390 × 844
 node offline_datenschutz.test.js # Offline, externe Adressen, Cookies, Dateigrößen
 node fortschritt.test.js         # Beamer + mehrere Handys mit lokalem Worker (wrangler dev)
+node anweisung.test.js           # Beamer: Anweisung ein-/ausblenden (Probeansicht, ohne Worker)
 ```
