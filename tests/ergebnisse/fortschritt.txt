@@ -2,7 +2,7 @@
 == Beamer-Seite: Raum starten
   ✓ Startseite sichtbar
   ✓ „Neuen Raum starten“ ist bedienbar (Adresse eingetragen)
-  ✓ Raumcode angezeigt: 4630
+  ✓ Raumcode angezeigt: 1132
   ✓ „Warten auf die ersten Anmeldungen …“
 
 == Handy 1 (Mia): Anmeldung

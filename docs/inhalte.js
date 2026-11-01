@@ -132,7 +132,16 @@ var INHALTE = {
     abbrechen: 'Abbrechen',
     ja: 'Ja',
     abgelaufen: 'Der Raum ist abgelaufen. Bitte starten Sie einen neuen Raum.',
-    demo: 'Probeansicht mit erfundenen Namen'
+    demo: 'Probeansicht mit erfundenen Namen',
+
+    // Anweisungen für die Klasse: Für jeden Eintrag gibt es unten einen Knopf.
+    // Ein Klick blendet den Text groß über den Karten ein, noch ein Klick blendet ihn aus.
+    // knopf = Beschriftung des Knopfs, text = was die Klasse am Beamer sieht.
+    anweisungen: [
+      { knopf: 'Anweisung A1 + A2', text: 'Bearbeiten Sie jetzt die Aufgaben A1 und A2!' },
+      { knopf: 'Anweisung B1 + B2', text: 'Bearbeiten Sie jetzt die Aufgaben B1 und B2!' }
+    ],
+    anweisungTipp: 'Anweisung groß einblenden – noch einmal klicken blendet sie wieder aus'
   },
 
   /* ------------------------------------------------------------------------
